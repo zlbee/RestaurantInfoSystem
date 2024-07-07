@@ -17,12 +17,6 @@ services:
 
   db:
     image: postgres
-    restart: always
-    volumes:
-      # initialize database schemas
-      - ./data/db:/var/lib/postgresql/data
-      # initialize data
-      - ./data/init/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres

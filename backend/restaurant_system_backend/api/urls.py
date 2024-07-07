@@ -19,7 +19,7 @@ urlpatterns = [
 
     # query restaurants according to filtering conditions
     path('restaurant/query-filtered/', views.query_filtered_restaurants_w_filterset),
-    
-    # query restaurants according to filtering conditions that filtering is implemented with the filterset
+
+    # query the names of all the restaurants with pagination
     path('restaurant/query-all-paged', views.query_restaurants_w_pagination),
 ]

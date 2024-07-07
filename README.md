@@ -1,103 +1,51 @@
-# Title
+# Restaurant Info System Backend Introduction
 
-## Backend
+## Prerequisites
 
-superuser account:
+To run the project, the Docker should be installed. The Postman is recommended for validating the APIs.
 
-username: admin
+## Deployment
 
-password: @zlbee_demo
+Use the 
+
+```dockerfile
+docker-compose up --build
+```
+
+command for initializing the project dependencies, setup databases, and run the project. In the first run, as the backend is dependent on the database, its container might stop as the database might not be ready yet, it should be online once you restart it. So there is room for improvement.
 
 
 
-[
+Then if you can see the following administration page displayed normally, the application is started fine:
 
-  {
+http://127.0.0.1:8000/admin
 
-​    "id": 1,
+## API Documentation
 
-​    "name": "Pasta Paradise",
+| API Path                                                     | API HTTP Method | Description                                                  |
+| ------------------------------------------------------------ | --------------- | ------------------------------------------------------------ |
+| http://127.0.0.1:8000/api/restaurant/query-all               | GET             | Query the names of all the restaurants.                      |
+| http://127.0.0.1:8000/api/restaurant/query-detail/pk         | GET             | Query the detailed information of a specific restaurant according to the primary key `pk`. |
+| http://127.0.0.1:8000/api/restaurant/add                     | POST            | Add a restaurant record.                                     |
+| http://127.0.0.1:8000/api/restaurant/delete/pk               | DELETE          | Delete a restaurant record according to the primary key `pk`. |
+| http://127.0.0.1:8000/api/restaurant/update/pk               | PUT             | Update a restaurant record according to the primary key `pk`. |
+| http://127.0.0.1:8000/api/restaurant/query-filtered/?location=xxx&cuisine=yyy | GET             | Query restaurants according to location or cuisine.          |
+| http://127.0.0.1:8000/api/restaurant/query-all-paged         | GET             | Query the names of all the restaurants with pagination       |
 
-​    "location": "Rome",
+Sadly, I didn't install Postgres database locally and the docker image is used instead. I cannot initialize the database tables and records locally. The database schema is created once the container is started (`python manage.py makemigrations`). So you may have to use the "add" API to add some data to the tables first. The data should be added in the body like this.
 
-​    "cuisine": "Italian",
 
-​    "rating": 4.5,
 
-​    "contact": {
+I also give some Postman API examples for how to send the API requests in the `./test` directory. You can import the `RestaurantSystemAPIs.postman_collection_2.1.json` file to the Postman to send the requests. The template data are in the `template_data.json` file. You can use them for adding initial data to the database.
 
-​      "phone": "123-456-7890",
+## Authentication
 
-​      "email": "info@pastaparadise.com"
+I also use the CSRF (Cross-Site Request Forgery) token for authentication. It is used against cross-site attackers. If you use the Postman for sending the requests there won't be any problems because using Postman for sending requests won't be a CSRF attack. But if you use the browser for sending a POST, DELETE, or PUT request, a CSRF token is needed. Like this:
 
-​    }
+| Header      | ****                             |
+| ----------- | -------------------------------- |
+| X-csrftoken | IbizIeiE2Y04uV586Ug209nlQPdt0jDy |
 
-  },
+## Remarks
 
-  {
-
-​    "id": 2,
-
-​    "name": "Curry King",
-
-​    "location": "Mumbai",
-
-​    "cuisine": "Indian",
-
-​    "rating": 4.7,
-
-​    "contact": {
-
-​      "phone": "098-765-4321",
-
-​      "email": "contact@currykingdom.com"
-
-​    }
-
-  },
-
-  {
-
-​    "id": 3,
-
-​    "name": "Sushi Suite",
-
-​    "location": "Tokyo",
-
-​    "cuisine": "Japanese",
-
-​    "rating": 4.9,
-
-​    "contact": {
-
-​      "phone": "234-567-8901",
-
-​      "email": "reservations@sushisuite.com"
-
-​    }
-
-  },
-
-  {
-
-​    "id": 4,
-
-​    "name": "Taco T",
-
-​    "location": "Mexico City",
-
-​    "cuisine": "Mexican",
-
-​    "rating": 4.4,
-
-​    "contact": {
-
-​      "phone": "345-678-9012",
-
-​      "email": "info@tacoterritory.mx"
-
-​    }
-
-  }
-
-]
+If you meet any problem during deployment or other steps, please contact via email zlbee_work@outlook.com or WeChat :). 
