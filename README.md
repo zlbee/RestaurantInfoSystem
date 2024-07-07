@@ -32,7 +32,7 @@ http://127.0.0.1:8000/admin
 | http://127.0.0.1:8000/api/restaurant/query-filtered/?location=xxx&cuisine=yyy | GET             | Query restaurants according to location or cuisine.          |
 | http://127.0.0.1:8000/api/restaurant/query-all-paged         | GET             | Query the names of all the restaurants with pagination       |
 
-Sadly, I didn't install Postgres database locally and the docker image is used instead. I cannot initialize the database tables and records locally. The database schema is created once the container is started (`python manage.py makemigrations`). So you may have to use the "add" API to add some data to the tables first. The data should be added in the body like this.
+Sadly, I didn't install Postgres database locally and the docker image is used instead.. The database schema is created when the container is started (`python manage.py makemigrations`). So you may need to use the "add" API to add some data to the tables first.
 
 
 
