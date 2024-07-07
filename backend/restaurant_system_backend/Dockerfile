@@ -15,10 +15,3 @@ RUN pip install -r requirements.txt
 
 # copy project file to the working directory
 COPY . /code/
-
-# # generate the dependency file
-# RUN pip freeze > requirements.txt
-
-# EXPOSE 8000
-
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

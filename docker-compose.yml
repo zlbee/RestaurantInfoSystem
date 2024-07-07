@@ -4,9 +4,12 @@ services:
   backend:
     image: django-backend:0.0.1
     build: ./backend/restaurant_system_backend
-    command: python manage.py runserver 0.0.0.0:8000
-    # volumes:
-    #   - .:/code
+    command: >
+      sh -c "python manage.py makemigrations api &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend/restaurant_system_backend:/code
     ports:
       - "8000:8000"
     depends_on:
@@ -14,9 +17,15 @@ services:
 
   db:
     image: postgres
+    restart: always
     volumes:
+      # initialize database schemas
       - ./data/db:/var/lib/postgresql/data
+      # initialize data
+      - ./data/init/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
