@@ -45,7 +45,3 @@ I also use the CSRF (Cross-Site Request Forgery) token for authentication. It is
 | Header      | ****                             |
 | ----------- | -------------------------------- |
 | X-csrftoken | IbizIeiE2Y04uV586Ug209nlQPdt0jDy |
-
-## Remarks
-
-If you meet any problem during deployment or other steps, please contact via email zlbee_work@outlook.com or WeChat :). 
