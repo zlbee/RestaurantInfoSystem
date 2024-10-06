@@ -12,7 +12,7 @@ Use the
 docker-compose up --build
 ```
 
-command for initializing the project dependencies, setup databases, and run the project.
+command for initializing the project dependencies, setting-up databases, and running the project.
 
 ## API Documentation
 
