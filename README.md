@@ -12,13 +12,7 @@ Use the
 docker-compose up --build
 ```
 
-command for initializing the project dependencies, setup databases, and run the project. In the first run, as the backend is dependent on the database, its container might stop as the database might not be ready yet, it should be online once you restart it. So there is room for improvement.
-
-
-
-Then if you can see the following administration page displayed normally, the application is started fine:
-
-http://127.0.0.1:8000/admin
+command for initializing the project dependencies, setup databases, and run the project.
 
 ## API Documentation
 
@@ -32,15 +26,11 @@ http://127.0.0.1:8000/admin
 | http://127.0.0.1:8000/api/restaurant/query-filtered/?location=xxx&cuisine=yyy | GET             | Query restaurants according to location or cuisine.          |
 | http://127.0.0.1:8000/api/restaurant/query-all-paged         | GET             | Query the names of all the restaurants with pagination       |
 
-Sadly, I didn't install Postgres database locally and the docker image is used instead.. The database schema is created when the container is started (`python manage.py makemigrations`). So you may need to use the "add" API to add some data to the tables first.
-
-
-
-I also give some Postman API examples for how to send the API requests in the `./test` directory. You can import the `RestaurantSystemAPIs.postman_collection_2.1.json` file to the Postman to send the requests. The template data are in the `template_data.json` file. You can use them for adding initial data to the database.
+I also gave some Postman API examples for how to send the API requests in the `./test` directory. You can import the `RestaurantSystemAPIs.postman_collection_2.1.json` file to the Postman to send the requests. The template data are in the `template_data.json` file. You can use them for adding initial data to the database.
 
 ## Authentication
 
-I also use the CSRF (Cross-Site Request Forgery) token for authentication. It is used against cross-site attackers. If you use the Postman for sending the requests there won't be any problems because using Postman for sending requests won't be a CSRF attack. But if you use the browser for sending a POST, DELETE, or PUT request, a CSRF token is needed. Like this:
+The CSRF (Cross-Site Request Forgery) token is applied for authentication. It is used against cross-site attackers. If you use the Postman for sending the requests there won't be any problems because using Postman for sending requests won't be a CSRF attack. But if you use the browser for sending a POST, DELETE, or PUT request, a CSRF token is needed. Like this:
 
 | Header      | ****                             |
 | ----------- | -------------------------------- |
