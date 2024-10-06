@@ -1,0 +1,6 @@
+__pycache__
+*.pyc
+migrations
+.idea
+ris_backend_venv
+ris_backend_venv_macos

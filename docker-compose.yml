@@ -1,23 +1,35 @@
 version: '3.9'
 
 services:
-  backend:
+  django_backend:
     image: django-backend:0.0.1
-    build: ./backend/restaurant_system_backend
+    build: ./django_backend/restaurant_system_backend
     command: >
       sh -c "python manage.py makemigrations api &&
              python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - ./backend/restaurant_system_backend:/code
+      - ./django_backend/restaurant_system_backend:/code/django_backend
     ports:
       - "8000:8000"
     depends_on:
       db:
         condition: service_healthy
 
+  flask_backend:
+    image: flask-backend:0.0.1
+    build: ./flask_backend/flask_backend
+    command: "python3 app.py"
+    volumes:
+      - ./flask_backend/flask_backend:/code/flask_backend
+    ports:
+      - "5001:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+
   db:
-    image: postgres
+    image: postgres:latest
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
@@ -25,7 +37,7 @@ services:
     ports:
       - "5434:5432"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
-      interval: 30s
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
       timeout: 10s
-      retries: 5
+      retries: 10
